@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ post.recipe_tittle }} {% endblock %}
+
+{% block content %}
+    <style>
+        .recipe {
+
+        }
+
+        .recipe-title {
+            font-family: arial;
+            color: pink;
+            font-size: 23px;
+            margin-top: 10px;
+        }
+
+        .recipe-divider {
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .recipe-category {
+            margin-top: 0px;
+            font-family: arial;
+            color: white;
+            font-size: 13px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .recipe-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .recipe-content {
+            font-family: arial;
+            color: white; /* Change color to yellow */
+            line-height: normal;
+        }
+
+        .btn-edit-recipe,
+        .btn-delete-recipe {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .date {
+            font-family: arial;
+            color: white;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+
+    <article class="recipe">
+    <h3 class="recipe-title">{{ post.recipe_tittle|upper }}</h3>
+    <h4><a href="{% url 'category' post.category %}" class="recipe-category">{{ post.category }}</a></h4>
+    <hr class="recipe-divider">
+    {% if post.image %}
+        <img src="{{ post.image.url }}" class="recipe-image">  <br/><br/>
+    {% endif %}
+    <div class="recipe-content">
+        {{ post.recipe|safe|urlize }}
+    </div>
+        <p class="date">{{ post.recipe_date }}</p>
+    {% if user.is_authenticated %}
+        <a href="{% url 'edit-recipe' post.pk %}" class="btn btn-light btn-edit-recipe">Изменить рецепт</a>
+        <a href="{% url 'delete-recipe' post.pk %}" class="btn btn-light btn-delete-recipe">Удалить рецепт</a>
+    {% endif %}
+</article>
+
+{% endblock %}

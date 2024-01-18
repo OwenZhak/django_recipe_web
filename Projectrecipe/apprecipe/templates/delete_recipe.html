@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} Удаление рецепта {% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <h1>Удаление рецепта</h1>
+    <br/>
+    <h2>{{ post.recipe_tittle }}</h2>
+    <div class="mb-3">
+        <form method="POST">
+            {% csrf_token %}
+            <button class="btn btn-light">Удалить</button>
+        </form>
+    </div>
+{% endif %}
+
+{% endblock %}
